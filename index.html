@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Gebäudebetrachter</title>
+    <!-- Lädt das Google-Viewer-Script (Draco-kompatibel) -->
+    <script type="module" src="https://googleapis.com"></script>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #f4f4f4; }
+        model-viewer { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+
+    <!-- Der Viewer holt sich das Modell direkt über deinen Google Drive Direktlink -->
+    <model-viewer 
+        src="https://google.com" 
+        ar 
+        camera-controls 
+        touch-action="pan-y" 
+        alt="Komplexes Gebäude 3D"
+        loading="eager">
+    </model-viewer>
+
+    <script>
+        // 1. Rechtsklick auf der gesamten Seite sperren
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 2. F12 und Entwickler-Shortcuts für normale Nutzer blockieren
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123 || 
+               (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
+               (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
+        };
+    </script>
+</body>
+</html>
