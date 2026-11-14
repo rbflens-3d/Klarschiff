@@ -5,43 +5,11 @@
     <meta charset="utf-8">
     <meta name="description" content="&lt;model-viewer&gt; template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #e8ecef;
-  }
-  model-viewer {
-    width: 100vw;
-    height: 100vh;
-    display: block;
-  }
-</style>
-    
-    <!-- link type="text/css" href="./styles.css" rel="stylesheet"/>
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>
   </head>
   <body>
     <!-- <model-viewer> HTML element -->
-    
- <model-viewer 
-  src="Klarschiff-final.glb" 
-  camera-controls 
-  camera-target="0m 0m 0m" 
-  camera-orbit="140deg 75deg 100m" 
-  min-camera-orbit="auto 15deg 8m" 
-  max-camera-orbit="auto 85deg 90m" 
-  field-of-view="25deg" 
-  min-field-of-view="10deg" 
-  max-field-of-view="45deg" 
-  zoom-sensitivity="0.40" 
-  shadow-intensity="1">
-</model-viewer>
-
-
-      
+    <model-viewer src="Klarschiff-final.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="aces" poster="poster.webp" shadow-intensity="1.01" exposure="1.27" environment-image="legacy">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
       </div>
