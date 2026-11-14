@@ -25,8 +25,23 @@
   </head>
   <body>
     <!-- <model-viewer> HTML element -->
-    <model-viewer src="Klarschiff.glb" ar ar-modes="webxr scene-viewer quick-look" poster="poster.webp"  
-      camera-controls camera-target="0m 0m 0m"  camera-orbit="45deg 65deg 25m"  field-of-view="20deg"  min-field-of-view="15deg"  min-camera-orbit="auto auto 2m" tone-mapping="neutral" shadow-intensity="1">
+    
+ <model-viewer 
+  src="Klarschiff-final.glb" 
+  camera-controls 
+  camera-target="0m 0m 0m" 
+  camera-orbit="140deg 75deg 100m" 
+  min-camera-orbit="auto 15deg 8m" 
+  max-camera-orbit="auto 85deg 90m" 
+  field-of-view="25deg" 
+  min-field-of-view="10deg" 
+  max-field-of-view="45deg" 
+  zoom-sensitivity="0.40" 
+  shadow-intensity="1">
+</model-viewer>
+
+
+      
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
       </div>
