@@ -1,16 +1,68 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <title>&lt;model-viewer&gt; Klarschiff</title>
     <meta charset="utf-8">
     <meta name="description" content="&lt;model-viewer&gt; template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
+	
+	
+    <style>
+      /* Container für Ladebalken und Text */
+      .custom-progress-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 260px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 16px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        font-family: sans-serif;
+        transition: opacity 0.4s ease;
+        z-index: 10;
+      }
+
+      /* Blendet den Ladebalken aus, wenn das Modell fertig ist */
+      .custom-progress-container.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Der Ladetext */
+      #loading-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 10px;
+      }
+
+      /* Äußerer Rahmen des Balkens */
+      .progress-track {
+        width: 100%;
+        height: 8px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      /* Der sich füllende Balken */
+      .update-bar {
+        width: 0%;
+        height: 100%;
+        background-color: #0066cc; /* Farbe des Ladebalkens */
+        transition: width 0.1s linear;
+      }
+    </style>
   </head>
+  
+  
+  
   <body>
-    <!-- <model-viewer> HTML element -->
-    <model-viewer src="Klarschiff-final.glb" ar ar-modes="webxr scene-viewer quick-look" 
-      
+    <model-viewer id="klarschiff-viewer" src="Klarschiff-final.glb" ar ar-modes="webxr scene-viewer quick-look" 
       camera-controls tone-mapping="aces" 
       camera-target="0m 0m 0m" 
       camera-orbit="340deg 75deg 100m" 
@@ -20,11 +72,19 @@
       min-field-of-view="10deg" 
       max-field-of-view="45deg" 
       zoom-sensitivity="0.40" 
-      
       poster="poster.webp" shadow-intensity="1.01" exposure="1.27" environment-image="legacy">
-      <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
+	  
+	  
+	  
+      
+      <!-- Ladebalken & Text -->
+      <div class="custom-progress-container" slot="progress-bar">
+          <div id="loading-text">3d-Datei wird geladen, auf Handys mindestes 4G/LTE erforderlich... 0%</div>
+          <div class="progress-track">
+              <div class="update-bar"></div>
+          </div>
       </div>
+
       <button slot="ar-button" id="ar-button">
           View in your space
       </button>
@@ -32,8 +92,32 @@
           <img src="ar_hand_prompt.png">
       </div>
     </model-viewer>  
+
     <script src="script.js"></script>
-    <!-- Loads <model-viewer> for browsers: -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.4.0/model-viewer.min.js"></script>
+
+
+
+    <!-- Skript für den Ladefortschritt -->
+    <script>
+      const modelViewer = document.querySelector('#klarschiff-viewer');
+      const progressContainer = modelViewer.querySelector('.custom-progress-container');
+      const progressBar = modelViewer.querySelector('.update-bar');
+      const loadingText = modelViewer.querySelector('#loading-text');
+
+      modelViewer.addEventListener('progress', (event) => {
+        const progress = Math.round(event.detail.totalProgress * 100);
+        progressBar.style.width = `${progress}%`;
+        loadingText.textContent = `3d-Datei wird geladen, auf Handys mindestes 4G/LTE erforderlich... ${progress}%`;
+
+        if (progress === 100) {
+          setTimeout(() => {
+            progressContainer.classList.add('hide');
+          }, 300); // Kurze Verzögerung, damit man die 100% noch kurz sieht
+        } else {
+          progressContainer.classList.remove('hide');
+        }
+      });
+    </script>
   </body>
 </html>
