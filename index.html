@@ -79,7 +79,7 @@
       
       <!-- Ladebalken & Text -->
       <div class="custom-progress-container" slot="progress-bar">
-          <div id="loading-text">3d-Datei wird geladen, auf Handys mindestes 4G/LTE erforderlich... 0%</div>
+          <div id="loading-text">3d-Datei wird geladen, auf Handys mindestens 4G/LTE erforderlich... 0%</div>
           <div class="progress-track">
               <div class="update-bar"></div>
           </div>
@@ -108,7 +108,7 @@
       modelViewer.addEventListener('progress', (event) => {
         const progress = Math.round(event.detail.totalProgress * 100);
         progressBar.style.width = `${progress}%`;
-        loadingText.textContent = `3d-Datei wird geladen, auf Handys mindestes 4G/LTE erforderlich... ${progress}%`;
+        loadingText.textContent = `3d-Datei wird geladen, auf Handys mindestens 4G/LTE erforderlich... ${progress}%`;
 
         if (progress === 100) {
           setTimeout(() => {
